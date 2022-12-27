@@ -1,16 +1,14 @@
-# Project 4: Around The U.S.
+# Project 3: Around The U.S.
 
-### Overview
+### 
 
-* Figma
-* Images
+This project shows Jacques Cousteau, and his exploration around the U.S.
 
-**Figma**
+I have used HTML and CSS, and have different hover stated for buttons. the website is also responsive.
 
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+https://ibb.co/ggP5YZJ website
+https://ibb.co/0GqKcxV hover over button
+https://ibb.co/qywMMBb mobile version
 
-**Images**
+https://tomblackhampro.github.io/se_project_aroundtheus/
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-
-Have fun with JavaScript!

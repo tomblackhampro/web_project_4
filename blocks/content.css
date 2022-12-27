@@ -1,0 +1,15 @@
+.content {
+  display: flex;
+  margin: 0 auto;
+  padding: 0;
+  justify-content: center;
+  gap: 17px;
+  flex-wrap: wrap;
+  max-width: 880px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+ .content {
+  max-width: 282px;
+  }
+}
