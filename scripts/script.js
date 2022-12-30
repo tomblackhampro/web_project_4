@@ -29,19 +29,15 @@ function handleProfileFormSubmit(evt) {
     // We'll explain it in more detail later.
 
     // Let's find the form fields in the DOM
-    let nameInput = document.querySelector(".popup__input-name");
-    let jobInput = document.querySelector(".popup__input-description");
+    let nameInput = document.querySelector(".popup__input-name").value;
+    let jobInput = document.querySelector(".popup__input-description").value;
 
     // Get the values of each field from the corresponding value property
-    nameInput.value = nameInputValue;
-    jobInput.value = jobInputValue;
     // Select elements where the field values will be entered
-    const nameShown = document.querySelector(".profile__title").textContent;
-    let descriptionShown = document.querySelector(".profile__description").textContent;
+    document.querySelector(".profile__title").textContent= nameInput;
+    document.querySelector(".profile__description").textContent = jobInput;
     // Insert new values using the textContent 
     // property of the querySelector() method
-    nameShown = nameInputValue;
-    descriptionShown = jobInputValue;
 }
 
 // Connect the handler to the form:
