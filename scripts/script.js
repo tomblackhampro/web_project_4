@@ -29,8 +29,8 @@ function handleProfileFormSubmit(evt) {
     // We'll explain it in more detail later.
 
     // Let's find the form fields in the DOM
-    let nameInput = querySelector(".popup__input-name");
-    let jobInput = querySelector(".popup__input-description");
+    let nameInput = document.querySelector(".popup__input-name");
+    let jobInput = document.querySelector(".popup__input-description");
 
     // Get the values of each field from the corresponding value property
     nameInput.value = nameInputValue;
