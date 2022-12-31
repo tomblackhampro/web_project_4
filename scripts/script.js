@@ -5,8 +5,8 @@ const closeEditWindowButton = document.querySelector(".popup__button-close");
 function addInfo() {
   let nameShown = document.querySelector(".profile__title").textContent;
   let descriptionShown = document.querySelector(".profile__description").textContent;
-  document.querySelector(".popup__input-name").value = nameShown;
-  document.querySelector(".popup__input-description").value = descriptionShown;
+  document.querySelector("#name").value = nameShown;
+  document.querySelector("#about-me").value = descriptionShown;
 };
 
 function toggleCloseWindow() {
@@ -29,8 +29,8 @@ function handleProfileFormSubmit(evt) {
     // We'll explain it in more detail later.
 
     // Let's find the form fields in the DOM
-    let nameInput = document.querySelector(".popup__input-name").value;
-    let jobInput = document.querySelector(".popup__input-description").value;
+    let nameInput = document.querySelector("#name").value;
+    let jobInput = document.querySelector("#about-me").value;
 
     // Get the values of each field from the corresponding value property
     // Select elements where the field values will be entered
@@ -38,6 +38,7 @@ function handleProfileFormSubmit(evt) {
     document.querySelector(".profile__description").textContent = jobInput;
     // Insert new values using the textContent 
     // property of the querySelector() method
+    toggleCloseWindow();
 }
 
 // Connect the handler to the form:
