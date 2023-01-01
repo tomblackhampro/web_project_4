@@ -101,7 +101,9 @@
 
   .popup__button-close {
     top: -35px;
-    left: 277px;
+    left: 265px;
+    width: 26px;
+    height: 26px;
   }
 
   .popup__close {
@@ -111,6 +113,7 @@
 
   .popup__title {
     font-size: 18px;
+    margin: 25px 0 76px 36px;
   }
 
   .popup__form {
@@ -119,10 +122,13 @@
 
   .popup__input {
     width: 238px;
+    padding-bottom: 9px;
   }
 
   .popup__button-save {
     width: 238px;
     height: 46px;
+    margin: 46px 0 25px 0;
+    padding: 0;
   }
 }
