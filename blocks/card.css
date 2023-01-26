@@ -30,15 +30,37 @@
   margin: 25px 0;
 }
 
-.card__button {
+.card__like-button {
   align-self: center;
   height: 18px;
   width: 21px;
   border: none;
   background: none;
   padding: 0;
+  background-image: url(../images/Vector-heart.svg);
 }
 
-.card__button:hover {
+.card__like-button:hover {
   opacity: 0.5;
+}
+
+.card__like-button_active {
+  background-image: url(../images/Vector-heart-filled.svg);
+}
+
+.card__delete-button {
+  height: 18px;
+  width: 19px;
+  border: none;
+  background: url(../images/Trash.svg);
+  padding: 0;
+  position: relative;
+  top: -258px;
+  right: -237px;
+}
+
+.card__delete-button:hover {
+  opacity: 60%;
+  border-radius: 0px;
+  display: block;
 }
