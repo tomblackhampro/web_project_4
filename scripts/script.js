@@ -98,32 +98,35 @@ const getCardElement = (data) => {
 
 const addCard = document.querySelector(".popup__form-add");
 
-const renderCard = (data, wrap) => {
-  const cardItem = getCardElement(data);
-  wrap.prepend(cardItem);
-};
-
 addCard.addEventListener("submit", (e) => {
+  e.preventDefault();
   const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
   const cardNewTitle = document.querySelector("#title").value;
   const imageNewElement  = document.querySelector("#image-link").value;
   const newCardData = {
     name: cardNewTitle,
-    link: imageNewElement
+    link: imageNewElement,
+    cardTemplate: cardTemplate
   };
-  const newCardElement = getCardElement(newCardData);
-  
+  renderCard(newCardData, placesWrapper);
   toggleCloseAddWindow();
   addCard.reset();
 });
 
+const renderNewCard = (data, wrap) => {
+  const cardNewItem = newCardData(data);
+  wrap.prepend(cardNewItem);
+};
+
+
+const renderCard = (data, wrap) => {
+  const cardItem = getCardElement(data);
+  wrap.prepend(cardItem);
+};
 
 initialCards.forEach((cardObject) => {
   renderCard(cardObject, placesWrapper);
 });
-
-
-
 
 
 // add infomation to submit
@@ -134,14 +137,6 @@ function addInfo() {
   document.querySelector("#about-me").value = descriptionShown;
 };
 
-function addInfo2() {
-  document.querySelector("#title").value = titleValue;
-  document.querySelector("#image-link").value = linkValue;
-};
-
-
-
-
 openEditWindowButton.addEventListener("click", toggleOpenWindow);
 closeEditWindowButton.addEventListener( "click", toggleCloseWindow);
 openAddWindowButton.addEventListener("click", toggleOpenAddWindow);
@@ -149,27 +144,17 @@ closeAddWindowButton.addEventListener( "click", toggleCloseAddWindow);
 
 // Popup Forms
 
-let formElement = document.querySelector(".popup__form");
+let formElement = document.querySelector(".popup__form-profile");
 let formElementAdd = document.querySelector(".popup__form-add");
 
 function handleProfileFormSubmit(evt) {
-    evt.preventDefault();
-
-    initialCards.forEach((cardObject) => {
-      renderNewCard(cardObject, placesWrapper);
-    });
-    toggleCloseWindow();
-}
-
-function handleCardFormSubmit(evt) {
   evt.preventDefault();
-  let titleInput = document.querySelector("#title").value;
-  let linkInput = document.querySelector("#image-link").value;
+  let nameInput = document.querySelector("#name").value;
+  let jobInput = document.querySelector("#about-me").value;
   document.querySelector(".profile__title").textContent= nameInput;
   document.querySelector(".profile__description").textContent = jobInput;
-  toggleCloseAddWindow();
+  formElement.reset();
+  toggleCloseWindow();
 }
 
-
-formElement.addEventListener('submit', handleCardFormSubmit);
 formElement.addEventListener('submit', handleProfileFormSubmit);

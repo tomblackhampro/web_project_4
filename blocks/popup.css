@@ -1,4 +1,7 @@
 .popup, .popup-add, .popup-image {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,.5);
@@ -53,7 +56,7 @@
   margin: 36px 0 54px 36px;
 }
 
-.popup__form {
+.popup__form-profile {
   padding: 0 36px;
 }
 
@@ -141,16 +144,10 @@
   cursor: pointer;
 }
 
-.popup_active {
+.popup_active, .popup_active-add, .popup-image-active {
   display: flex;
-}
-
-.popup_active-add {
-  display: flex;
-}
-
-.popup-image-active {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
@@ -175,7 +172,7 @@
     margin: 25px 0 76px 36px;
   }
 
-  .popup__form {
+  .popup__form-profile {
     padding: 0 22px;
   }
 
