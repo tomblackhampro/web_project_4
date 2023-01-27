@@ -26,32 +26,32 @@ const initialCards = [
 ];
 
 const placesWrapper = document.querySelector(".places__list");
-const modalWindow = document.querySelector(".popup");
+const modalWindow = document.querySelector(".popup-profile");
 const addWindow = document.querySelector(".popup-add");
 const openEditWindowButton = document.querySelector(".profile__rectangle-edit");
-const closeEditWindowButton = document.querySelector(".popup__button-close");
+const closeEditWindowButton = document.querySelector(".popup-profile__button-close");
 const cardButton = document.querySelector(".card__button");
 const openAddWindowButton = document.querySelector(".profile__rectangle-add");
-const closeAddWindowButton = document.querySelector(".popup__button-close-add");
+const closeAddWindowButton = document.querySelector(".popup-add__button-close-add");
 
 // opening/closing functions
 
 function toggleCloseWindow() {
-  modalWindow.classList.toggle("popup_active");
+  modalWindow.classList.toggle("popup-profile_active");
 }
 
 function toggleOpenWindow() {
-  modalWindow.classList.toggle("popup_active");
+  modalWindow.classList.toggle("popup-profile_active");
   addInfo();
 }
 
 function toggleOpenAddWindow() {
-  addWindow.classList.toggle("popup_active-add");
+  addWindow.classList.toggle("popup-add_active-add");
 
 }
 
 function toggleCloseAddWindow() {
-  addWindow.classList.toggle("popup_active-add");
+  addWindow.classList.toggle("popup-add_active-add");
 }
 
 // Card template
@@ -96,7 +96,7 @@ const getCardElement = (data) => {
   return cardElement
 };
 
-const addCard = document.querySelector(".popup__form-add");
+const addCard = document.querySelector(".popup-add__form-add");
 
 addCard.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -144,8 +144,8 @@ closeAddWindowButton.addEventListener( "click", toggleCloseAddWindow);
 
 // Popup Forms
 
-let formElement = document.querySelector(".popup__form-profile");
-let formElementAdd = document.querySelector(".popup__form-add");
+let formElement = document.querySelector(".popup-profile__form-profile");
+let formElementAdd = document.querySelector(".popup-add__form-add");
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();

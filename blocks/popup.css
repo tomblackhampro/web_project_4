@@ -1,4 +1,4 @@
-.popup, .popup-add, .popup-image {
+.popup-profile, .popup-add, .popup-image {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
@@ -38,7 +38,7 @@
   font-family: 'Inter', 'sans-serif';
 }
 
-.popup__container {
+.popup-profile__container, .popup-add__container {
   width: 430px;
   background: #FFFFFF;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
@@ -48,7 +48,7 @@
   position: relative;
 }
 
-.popup__title {
+.popup-profile__title, .popup-add__title {
   font-family: 'Inter', 'sans-serif';
   font-weight: 900;
   font-size: 24px;
@@ -56,22 +56,18 @@
   margin: 36px 0 54px 36px;
 }
 
-.popup__form-profile {
+.popup-profile__form-profile, .popup-add__form-add {
   padding: 0 36px;
 }
 
-.popup__form-add {
-  padding: 0 36px;
-}
-
-.popup__fieldset {
+.popup-profile__fieldset, .popup-add__fieldset {
   border: none;
   padding: 0;
   margin: 0;
   font-family: 'Inter', Arial, sans-serif;
 }
 
-.popup__input {
+.popup-profile__input, .popup-add__input {
   width: 358px;
   font-weight: 400;
   font-size: 14px;
@@ -83,11 +79,11 @@
   padding-bottom: 13px;
 }
 
-.popup__input:last-of-type {
+.popup-profile__input:last-of-type, .popup-add__input:last-of-type {
   margin-bottom: 0;
 }
 
-.popup__button-close {
+.popup-profile__button-close, .popup-add__button-close-add  {
   height: 40px;
   width: 40px;
   cursor: pointer;
@@ -98,18 +94,7 @@
   left: 428px;
 }
 
-.popup__button-close-add {
-  height: 40px;
-  width: 40px;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  position: absolute;
-  top: -35px;
-  left: 428px;
-}
-
-.popup__button-close:hover {
+.popup-profile__button-close:hover, .popup-add__button-close:hover {
   opacity: 60%;
   cursor: pointer;
 }
@@ -125,7 +110,7 @@
   align-self: flex-end;
 }
 
-.popup__button-save {
+.popup-profile__button-save, .popup-add__button-save {
   height: 50px;
   width: 358px;
   border-radius: 2px;
@@ -139,44 +124,44 @@
   border: none;
 }
 
-.popup__button-save:hover {
+.popup-profile__button-save:hover, .popup-add__button-save:hover {
   opacity: 80%;
   cursor: pointer;
 }
 
-.popup_active, .popup_active-add, .popup-image-active {
+.popup-profile_active, .popup-add_active-add, .popup-image-active {
   visibility: visible;
   opacity: 1;
   transition: 0.5s;
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
-  .popup__container {
+  .popup-profile__container {
     width: 282px;
   }
 
-  .popup__button-close {
+  .popup-profile__button-close {
     top: -35px;
     left: 265px;
     width: 26px;
     height: 26px;
   }
 
-  .popup__close {
+  .popup-profile__close {
     width: 26px;
     height: 26px;
   }
 
-  .popup__title {
+  .popup-profile__title, .popup-add__title {
     font-size: 18px;
     margin: 25px 0 76px 36px;
   }
 
-  .popup__form-profile {
+  .popup-profile__form-profile {
     padding: 0 22px;
   }
 
-  .popup__input {
+  .popup-profile__input, .popup-add__input {
     width: 238px;
     padding-bottom: 9px;
   }
@@ -185,12 +170,12 @@
     padding: 0 22px;
   }
 
-  .popup__button-close-add {
+  .popup-add__button-close-add {
     top: -36px;
     left: 265px;
   }
 
-  .popup__button-save {
+  .popup-profile__button-save {
     width: 238px;
     height: 46px;
     margin: 46px 0 25px 0;
