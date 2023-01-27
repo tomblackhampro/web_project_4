@@ -190,10 +190,6 @@
     left: 265px;
   }
 
-  .popup__button-close-image {
-    right: -27px;
-  }
-
   .popup__button-save {
     width: 238px;
     height: 46px;
@@ -204,5 +200,6 @@
   .popup__button-close-image {
     height: 30px;
     width: 30px;
+    right: -27px;
   }
 }
