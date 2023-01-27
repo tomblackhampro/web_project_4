@@ -99,7 +99,7 @@
   cursor: pointer;
 }
 
-.popup__button-close-image {
+.popup-image__button-close-image {
   height: 40px;
   width: 40px;
   cursor: pointer;
@@ -182,7 +182,7 @@
     padding: 0;
   }
 
-  .popup__button-close-image {
+  .popup-image__button-close-image {
     height: 30px;
     width: 30px;
     right: -27px;

@@ -66,7 +66,7 @@ const getCardElement = (data) => {
   const imageElement = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
   const imagePopup = document.querySelector(".popup-image");
-  const imagePopupClose = document.querySelector(".popup__button-close-image");
+  const imagePopupClose = document.querySelector(".popup-image__button-close-image");
   imageElement.style.backgroundImage = "url(" + data.link + ")";
   cardTitle.innerHTML = data.name;
   
