@@ -26,6 +26,33 @@ const initialCards = [
 ];
 
 const placesWrapper = document.querySelector(".places__list");
+const modalWindow = document.querySelector(".popup");
+const addWindow = document.querySelector(".popup-add");
+const openEditWindowButton = document.querySelector(".profile__rectangle-edit");
+const closeEditWindowButton = document.querySelector(".popup__button-close");
+const cardButton = document.querySelector(".card__button");
+const openAddWindowButton = document.querySelector(".profile__rectangle-add");
+const closeAddWindowButton = document.querySelector(".popup__button-close-add");
+
+// opening/closing functions
+
+function toggleCloseWindow() {
+  modalWindow.classList.toggle("popup_active");
+}
+
+function toggleOpenWindow() {
+  modalWindow.classList.toggle("popup_active");
+  addInfo();
+}
+
+function toggleOpenAddWindow() {
+  addWindow.classList.toggle("popup_active-add");
+
+}
+
+function toggleCloseAddWindow() {
+  addWindow.classList.toggle("popup_active-add");
+}
 
 // Card template
 
@@ -69,62 +96,34 @@ const getCardElement = (data) => {
   return cardElement
 };
 
-
-
-const getNewCardElement = (data) => {
-  const cardTitle = document.querySelector("#title").value;
-  const imageElement = document.querySelector("#image-link").value;
-  const cardElement = cardTemplate.cloneNode(true);
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  const likeButton = cardElement.querySelector(".card__like-button");
-
-  deleteButton.addEventListener("click", (event) =>{
-    event.target.parentNode.remove();
-  })
-  function togglelikeButton() {
-    likeButton.classList.toggle("card__like-button_active");
-  }
-  likeButton.addEventListener("click", togglelikeButton);
-
-  function openImagePopup() {
-    imagePopup.classList.toggle("popup-image-active");
-    const img = document.querySelector(".popup-image__image");
-    const imageTitle = document.querySelector(".popup-image__title");
-    img.src =  data.link;
-    imageTitle.innerHTML = data.name;
-  };
-  function closeImagePopup() {
-    imagePopup.classList.remove("popup-image-active");
-  };
-
-  imageElement.addEventListener("click", openImagePopup);
-  imagePopupClose.addEventListener("click", closeImagePopup);
-  console.log(cardElement);
-  return cardElement
-}
-
-const renderNewCard = (data, wrap) => {
-  const cardNewItem = getNewCardElement(data);
-  wrap.prepend(cardItem);
-};
+const addCard = document.querySelector(".popup__form-add");
 
 const renderCard = (data, wrap) => {
   const cardItem = getCardElement(data);
   wrap.prepend(cardItem);
 };
 
+addCard.addEventListener("submit", (e) => {
+  const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
+  const cardNewTitle = document.querySelector("#title").value;
+  const imageNewElement  = document.querySelector("#image-link").value;
+  const newCardData = {
+    name: cardNewTitle,
+    link: imageNewElement
+  };
+  const newCardElement = getCardElement(newCardData);
+  
+  toggleCloseAddWindow();
+  addCard.reset();
+});
+
+
 initialCards.forEach((cardObject) => {
   renderCard(cardObject, placesWrapper);
 });
 
 
-const modalWindow = document.querySelector(".popup");
-const addWindow = document.querySelector(".popup-add");
-const openEditWindowButton = document.querySelector(".profile__rectangle-edit");
-const closeEditWindowButton = document.querySelector(".popup__button-close");
-const cardButton = document.querySelector(".card__button");
-const openAddWindowButton = document.querySelector(".profile__rectangle-add");
-const closeAddWindowButton = document.querySelector(".popup__button-close-add");
+
 
 
 // add infomation to submit
@@ -140,23 +139,7 @@ function addInfo2() {
   document.querySelector("#image-link").value = linkValue;
 };
 
-function toggleCloseWindow() {
-  modalWindow.classList.toggle("popup_active");
-}
 
-function toggleOpenWindow() {
-  modalWindow.classList.toggle("popup_active");
-  addInfo();
-}
-
-function toggleOpenAddWindow() {
-  addWindow.classList.toggle("popup_active-add");
-  
-}
-
-function toggleCloseAddWindow() {
-  addWindow.classList.toggle("popup_active-add");
-}
 
 
 openEditWindowButton.addEventListener("click", toggleOpenWindow);
