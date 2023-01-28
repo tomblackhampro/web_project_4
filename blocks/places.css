@@ -6,4 +6,5 @@
   gap: 17px;
   flex-wrap: wrap;
   max-width: 880px;
+  min-height: 385px;
 }
