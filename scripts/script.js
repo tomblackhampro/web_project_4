@@ -34,6 +34,8 @@ const cardButton = document.querySelector(".card__button");
 const openAddPopupButton = document.querySelector(".profile__rectangle-add");
 const closeButtons = document.querySelectorAll('.popup__close');
 const imagePopup = document.querySelector(".popup-image");
+// Card template
+const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
 
 
 // popup open and close
@@ -53,8 +55,8 @@ closeButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 
-function toggleOpenWindow() {
-  profilePopup.classList.toggle("popup_opened");
+function toggleOpenProfileWindow() {
+  openPopup(profilePopup);
   addInfo();
 }
 
@@ -62,9 +64,8 @@ function toggleOpenAddPopup() {
   addPopup.classList.toggle("popup_opened");
 }
 
-// Card template
-
-const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
+openEditWindowButton.addEventListener("click", toggleOpenProfileWindow);
+openAddPopupButton.addEventListener("click", toggleOpenAddPopup);
 
 // Render Functions
 const getCardElement = (data) => {
@@ -102,7 +103,14 @@ addCard.addEventListener("submit", (e) => {
   e.preventDefault();
   const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
   const cardNewTitle = document.querySelector("#title").value;
-  const imageNewElement  = document.querySelector("#image-link").value;
+  let imageNewElement  = document.querySelector("#image-link").value;
+  const fallbackImage = 'https://images.unsplash.com/photo-1666705040497-1890be6e357c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80';
+  if (imageNewElement.match(/\.(jpg|jpeg|png|gif)$/)) {
+    console.log('Valid image')
+  } else {
+    console.log('Invalid image')
+    imageNewElement = fallbackImage;
+  }
   const newCardData = {
     name: cardNewTitle,
     link: imageNewElement,
@@ -130,9 +138,6 @@ function addInfo() {
   document.querySelector("#name").value = nameShown;
   document.querySelector("#about-me").value = descriptionShown;
 };
-
-openEditWindowButton.addEventListener("click", toggleOpenWindow);
-openAddPopupButton.addEventListener("click", toggleOpenAddPopup);
 
 // Popup Forms
 
