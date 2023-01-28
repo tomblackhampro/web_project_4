@@ -37,50 +37,50 @@
         </div>
       </section>
       <section>
-        <div class="popup-profile">
-          <div class="popup-profile__container">
-            <button type="button" class="popup-profile__button-close" aria-label="close">
-              <img class="popup-profile__close" src="./images/Close-Icon.svg" alt="close">
+        <div class="popup popup-profile">
+          <div class="popup__container">
+            <button type="button" class="popup__close" aria-label="close">
+              <img class="popup__close-img" src="./images/Close-Icon.svg" alt="close">
             </button>
-            <h3 class="popup-profile__title">Edit Profile</h3>
-            <form class="popup-profile__form-profile" name="form">
-              <fieldset class="popup-profile__fieldset">
-                <input id="name" class="popup-profile__input" type="text" placeholder="Name">
-                <input id="about-me" class="popup-profile__input" type="text" placeholder="About me">
-                <button class="popup-profile__button-save" type="submit">Save</button>
+            <h3 class="popup__title">Edit Profile</h3>
+            <form class="popup__form-profile" name="form">
+              <fieldset class="popup__fieldset">
+                <input id="name" class="popup__input" type="text" placeholder="Name">
+                <input id="about-me" class="popup__input" type="text" placeholder="About me">
+                <button class="popup__button-save" type="submit">Save</button>
               </fieldset>
             </form>
           </div>
         </div>
-        <div class="popup-add">
-          <div class="popup-add__container">
-            <button type="button" class="popup-add__button-close-add" aria-label="close">
-              <img class="popup-add__close" src="./images/Close-Icon.svg" alt="close">
+        <div class="popup popup-add">
+          <div class="popup__container">
+            <button type="button" class="popup__close" aria-label="close">
+              <img class="popup__close-img" src="./images/Close-Icon.svg" alt="close">
             </button>
-            <h3 class="popup-add__title">New Place</h3>
-            <form class="popup-add__form-add" name="form-add">
-              <fieldset class="popup-add__fieldset">
-                <input id="title" class="popup-add__input" type="text" placeholder="Title">
-                <input id="image-link" class="popup-add__input" type="text" placeholder="Image link">
-                <button class="popup-add__button-save" type="submit">Create</button>
+            <h3 class="popup__title">New Place</h3>
+            <form class="popup__form-add" name="form-add">
+              <fieldset class="popup__fieldset">
+                <input id="title" class="popup__input" type="text" placeholder="Title">
+                <input id="image-link" class="popup__input" type="text" placeholder="Image link">
+                <button class="popup__button-save" type="submit">Create</button>
               </fieldset>
             </form>
           </div>
         </div>
-        <div class="popup-image">
-          <div class="popup-image__content">
-            <button type="button" class="popup-image__button-close-image" aria-label="close">
-              <img class="popup-image__close" src="./images/Close-Icon.svg" alt="close">
+        <div class="popup popup-image">
+          <div class="popup__content">
+            <button type="button" class="popup__close popup__close-image" aria-label="close">
+              <img class="popup__close-img" src="./images/Close-Icon.svg" alt="close">
             </button>
-            <img class="popup-image__image">
-            <h3 class="popup-image__title"></h3>
+            <img class="popup__image">
+            <h3 class="popup__title-img"></h3>
           </div>
         </div>
       </section>
     </main>
     <template id="card-template">
       <li class="places__item card">
-        <div class="card__image"></div>
+        <img class="card__image"></img>
         <button type="button" class="card__delete-button"></button>
         <div class="card__description">
           <h3 class="card__title"></h3>

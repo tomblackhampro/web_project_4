@@ -33,9 +33,10 @@
 .card__like-button {
   align-self: center;
   height: 18px;
-  width: 21px;
+  width: 25px;
   border: none;
   background: none;
+  background-repeat: no-repeat;
   padding: 0;
   background-image: url(../images/Vector-heart.svg);
 }
