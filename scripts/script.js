@@ -34,6 +34,8 @@ const cardButton = document.querySelector(".card__button");
 const openAddPopupButton = document.querySelector(".profile__rectangle-add");
 const closeButtons = document.querySelectorAll('.popup__close');
 const imagePopup = document.querySelector(".popup-image");
+const img = document.querySelector(".popup__image");
+  const imageTitle = document.querySelector(".popup__title-img");
 // Card template
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
 
@@ -60,12 +62,10 @@ function toggleOpenProfileWindow() {
   addInfo();
 }
 
-function toggleOpenAddPopup() {
-  addPopup.classList.toggle("popup_opened");
-}
-
 openEditWindowButton.addEventListener("click", toggleOpenProfileWindow);
-openAddPopupButton.addEventListener("click", toggleOpenAddPopup);
+openAddPopupButton.addEventListener("click", function(){
+  openPopup(addPopup);
+});
 
 // Render Functions
 const getCardElement = (data) => {
@@ -75,19 +75,18 @@ const getCardElement = (data) => {
   const imageElement = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
   imageElement.src = `${data.link}`;
-  imageElement.alt = "picture";
+  imageElement.alt = data.name;
   cardTitle.textContent = data.name;
 
   function openImagePopup() {
     openPopup(imagePopup);
-    const img = document.querySelector(".popup__image");
-    const imageTitle = document.querySelector(".popup__title-img");
     img.src =  data.link;
+    img.alt = data.name;
     imageTitle.textContent = data.name;
   };
   
   deleteButton.addEventListener("click", (event) =>{
-    event.target.parentNode.remove();
+    event.target.closest('.card').remove();
   })
   function togglelikeButton() {
     likeButton.classList.toggle("card__like-button_active");
@@ -101,7 +100,6 @@ const addCard = document.querySelector(".popup__form-add");
 
 addCard.addEventListener("submit", (e) => {
   e.preventDefault();
-  const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
   const cardNewTitle = document.querySelector("#title").value;
   let imageNewElement  = document.querySelector("#image-link").value;
   const fallbackImage = 'https://images.unsplash.com/photo-1666705040497-1890be6e357c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80';
