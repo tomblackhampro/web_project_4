@@ -1,6 +1,5 @@
 const showError = ({ inputItem, errorClass, formSelector }) => {
-  // inputItem.closest(formSelector) doesn't work in the code
-  const formParent = inputItem.parentElement;
+  const formParent = inputItem.closest(formSelector);
   const errorItem = formParent.querySelector(`.${inputItem.id}-error`);
   errorItem.textContent = inputItem.validationMessage;
   errorItem.classList.add(errorClass);
