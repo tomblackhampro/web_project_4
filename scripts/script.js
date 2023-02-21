@@ -139,7 +139,7 @@ cardForm.addEventListener("submit", (e) => {
   renderCard(newCardData, placesWrapper);
   closePopup(addCardPopup);
   cardForm.reset();
-  setSubmitButtonState();
+  setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
 });
 
 const renderCard = (data, wrap) => {

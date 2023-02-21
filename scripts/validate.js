@@ -1,28 +1,29 @@
-const showError = ({ inputItem, inputErrorClass, errorClass }) => {
-  inputItem.classList.add(inputErrorClass);
+const showError = ({ inputItem, errorClass, formSelector }) => {
+  // inputItem.closest(formSelector) doesn't work in the code
   const formParent = inputItem.parentElement;
   const errorItem = formParent.querySelector(`.${inputItem.id}-error`);
   errorItem.textContent = inputItem.validationMessage;
   errorItem.classList.add(errorClass);
 }
 
-const hideError = ({ inputItem, inputErrorClass, errorClass }) => {
-  inputItem.classList.remove(inputErrorClass);
+const hideError = ({ inputItem, errorClass, formSelector }) => {
   const formParent = inputItem.parentElement;
   const errorItem = formParent.querySelector(`.${inputItem.id}-error`);
   errorItem.textContent = "";
   errorItem.classList.remove(errorClass);
 }
 
-const toggleInputError = (inputItem, inputErrorClass, submitButtonSelector, inactiveButtonClass, form, inputSelector) => {
+const toggleInputError = (inputItem, inputErrorClass, errorClass, formSelector) => {
   if (!inputItem.validity.valid) {
     showError({
-      inputItem, inputErrorClass, inactiveButtonClass, inputSelector
+      inputItem, errorClass, formSelector
     });
+    inputItem.classList.add(inputErrorClass);
     } else {
     hideError({
-      inputItem, inputErrorClass, inactiveButtonClass, inputSelector
+      inputItem, errorClass, formSelector
     });
+    inputItem.classList.remove(inputErrorClass);
   };
 };
 
@@ -47,17 +48,17 @@ const setSubmitButtonState = (form, submitButtonSelector, inputSelector, inactiv
 
 
 const enableValidation = (props) => {
-  const { formSelector, inputSelector, validationCallBack, inputErrorClass, inactiveButtonClass, submitButtonSelector } = props;
+  const { formSelector, inputSelector, inputErrorClass, inactiveButtonClass, submitButtonSelector, errorClass } = props;
   const formList = document.querySelectorAll(formSelector);
   setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
   formList.forEach((form) => {
       form.addEventListener("submit", (e) => {
         e.preventDefault();
       });
-      const inputs = document.querySelectorAll(inputSelector);
+      const inputs = form.querySelectorAll(inputSelector);
       inputs.forEach((inputItem) => {
         inputItem.addEventListener("input", () => { 
-          toggleInputError(inputItem, inputErrorClass, submitButtonSelector, inactiveButtonClass, form, inputSelector);
+          toggleInputError(inputItem, inputErrorClass, errorClass, formSelector);
           setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
         });
       });
