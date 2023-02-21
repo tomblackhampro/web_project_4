@@ -1,11 +1,11 @@
-const showError = ({ inputItem, errorClass, formSelector }) => {
+const showError = ({ inputItem, inputErrorClass, errorClass, formSelector }) => {
   const formParent = inputItem.closest(formSelector);
   const errorItem = formParent.querySelector(`.${inputItem.id}-error`);
   errorItem.textContent = inputItem.validationMessage;
   errorItem.classList.add(errorClass);
 }
 
-const hideError = ({ inputItem, errorClass, formSelector }) => {
+const hideError = ({ inputItem, inputErrorClass, errorClass, formSelector }) => {
   const formParent = inputItem.parentElement;
   const errorItem = formParent.querySelector(`.${inputItem.id}-error`);
   errorItem.textContent = "";
@@ -18,7 +18,9 @@ const toggleInputError = (inputItem, inputErrorClass, errorClass, formSelector) 
       inputItem, errorClass, formSelector
     });
     inputItem.classList.add(inputErrorClass);
-    } else {
+    } 
+    else
+    {
     hideError({
       inputItem, errorClass, formSelector
     });
@@ -49,8 +51,8 @@ const setSubmitButtonState = (form, submitButtonSelector, inputSelector, inactiv
 const enableValidation = (props) => {
   const { formSelector, inputSelector, inputErrorClass, inactiveButtonClass, submitButtonSelector, errorClass } = props;
   const formList = document.querySelectorAll(formSelector);
-  setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
   formList.forEach((form) => {
+    setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
       form.addEventListener("submit", (e) => {
         e.preventDefault();
       });

@@ -38,10 +38,16 @@ const imagePopup = document.querySelector(".popup-image");
 const image = document.querySelector(".popup__image");
 const imageTitle = document.querySelector(".popup__title-img");
 const popupBackground = document.querySelectorAll(".popup__background");
-const nameInput = document.querySelector("#name").value;
-const jobInput = document.querySelector("#about-me").value;
-const cardNewTitle = document.querySelector("#title").value;
-const imageNewElement  = document.querySelector("#image-link").value;
+const nameInput = document.querySelector("#name");
+const jobInput = document.querySelector("#about-me");
+const cardNewTitle = document.querySelector("#title");
+const imageNewElement  = document.querySelector("#image-link");
+const nameShown = document.querySelector(".profile__title");
+const descriptionShown = document.querySelector(".profile__description");
+const inputSelector = document.querySelector(".popup__input");
+const submitButtonSelector = document.querySelector(".popup__button-save");
+const inputErrorClass = document.querySelector("popup__input_type_error");
+const inactiveButtonClass = document.querySelector("popup__button_disabled");
 // Card template
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
 
@@ -105,13 +111,13 @@ const getCardElement = (data) => {
   const likeButton = cardElement.querySelector(".card__like-button");
   const imageElement = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
-  imageElement.src = `${data.link}`;
+  imageElement.src = data.link;
   imageElement.alt = data.name;
   cardTitle.textContent = data.name;
 
   function openImagePopup() {
     openPopup(imagePopup);
-    image.src =  data.link;
+    image.src = data.link;
     image.alt = data.name;
     imageTitle.textContent = data.name;
   };
@@ -132,13 +138,14 @@ const getCardElement = (data) => {
 cardForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const newCardData = {
-    name: cardNewTitle,
-    link: imageNewElement,
+    name: cardNewTitle.value,
+    link: imageNewElement.value,
     cardTemplate: cardTemplate
   };
   renderCard(newCardData, placesWrapper);
   closePopup(addCardPopup);
   cardForm.reset();
+  console.log(submitButtonSelector);
   setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
 });
 
@@ -154,18 +161,16 @@ initialCards.forEach((cardObject) => {
 
 // add infomation to submit
 function fillProfileInfo() {
-  const nameShown = document.querySelector(".profile__title").textContent;
-  const descriptionShown = document.querySelector(".profile__description").textContent;
-  document.querySelector("#name").value = nameShown;
-  document.querySelector("#about-me").value = descriptionShown;
+  document.querySelector("#name").value = nameShown.textContent;
+  document.querySelector("#about-me").value = descriptionShown.textContent;
 };
 
 // Popup Forms
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  document.querySelector(".profile__title").textContent= nameInput;
-  document.querySelector(".profile__description").textContent = jobInput;
+  document.querySelector(".profile__title").textContent= nameInput.value;
+  document.querySelector(".profile__description").textContent = jobInput.value;
   closePopup(editProfilePopup);
 }
 
