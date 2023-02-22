@@ -1,28 +1,28 @@
 const initialCards = [
   {
     name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
+    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
   },
   {
     name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
+    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
   },
   {
     name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
   },
   {
     name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
+    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
   },
   {
     name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
+    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
   },
   {
     name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
+    link: "https://code.s3.yandex.net/web-code/lago.jpg",
+  },
 ];
 
 const placesWrapper = document.querySelector(".places__list");
@@ -33,7 +33,7 @@ const profileForm = document.querySelector(".popup__form-profile");
 const cardForm = document.querySelector(".popup__form-add");
 const cardButton = document.querySelector(".card__button");
 const openAddPopupButton = document.querySelector(".profile__rectangle-add");
-const closeButtons = document.querySelectorAll('.popup__close');
+const closeButtons = document.querySelectorAll(".popup__close");
 const imagePopup = document.querySelector(".popup-image");
 const image = document.querySelector(".popup__image");
 const imageTitle = document.querySelector(".popup__title-img");
@@ -41,7 +41,7 @@ const popupBackground = document.querySelectorAll(".popup__background");
 const nameInput = document.querySelector("#name");
 const jobInput = document.querySelector("#about-me");
 const cardNewTitle = document.querySelector("#title");
-const imageNewElement  = document.querySelector("#image-link");
+const imageNewElement = document.querySelector("#image-link");
 const nameShown = document.querySelector(".profile__title");
 const descriptionShown = document.querySelector(".profile__description");
 const inputSelector = document.querySelector(".popup__input");
@@ -49,27 +49,28 @@ const submitButtonSelector = document.querySelector(".popup__button-save");
 const inputErrorClass = document.querySelector("popup__input_type_error");
 const inactiveButtonClass = document.querySelector("popup__button_disabled");
 // Card template
-const cardTemplate = document.querySelector("#card-template").content.querySelector(".places__item");
-
+const cardTemplate = document
+  .querySelector("#card-template")
+  .content.querySelector(".places__item");
 
 // popup open and close
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupByEscape);
-  popup.addEventListener("mousedown", closePopupOnRemoteClick)
+  popup.addEventListener("mousedown", closePopupOnRemoteClick);
 }
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupByEscape);
-  popup.removeEventListener("mousedown", closePopupOnRemoteClick) 
+  popup.removeEventListener("mousedown", closePopupOnRemoteClick);
 }
 
 closeButtons.forEach((button) => {
-  // find the closest popup 
-  const popup = button.closest('.popup');
+  // find the closest popup
+  const popup = button.closest(".popup");
   // set the listener
-  button.addEventListener('click', () => closePopup(popup));
+  button.addEventListener("click", () => closePopup(popup));
 });
 
 // close the popup when the user presses the overlay
@@ -77,7 +78,7 @@ function closePopupOnRemoteClick(evt) {
   // target is the element on which the event happened
   // currentTarget is the popup
   // if they are the same then we should close the popup
-  if (evt.target === evt.currentTarget) { 
+  if (evt.target === evt.currentTarget) {
     closePopup(evt.target);
   }
 }
@@ -86,12 +87,11 @@ function closePopupOnRemoteClick(evt) {
 function closePopupByEscape(evt) {
   if (evt.key === "Escape") {
     // search for an opened modal
-    const openedPopup = document.querySelector('.popup_opened');
-     // close it
-     closePopup(openedPopup);
+    const openedPopup = document.querySelector(".popup_opened");
+    // close it
+    closePopup(openedPopup);
   }
-};
-
+}
 
 function openProfileWindow() {
   openPopup(editProfilePopup);
@@ -99,10 +99,9 @@ function openProfileWindow() {
 }
 
 openEditWindowButton.addEventListener("click", openProfileWindow);
-openAddPopupButton.addEventListener("click", function(){
+openAddPopupButton.addEventListener("click", function () {
   openPopup(addCardPopup);
 });
-
 
 // Render Functions
 const getCardElement = (data) => {
@@ -120,33 +119,36 @@ const getCardElement = (data) => {
     image.src = data.link;
     image.alt = data.name;
     imageTitle.textContent = data.name;
-  };
-  
-  deleteButton.addEventListener("click", (event) =>{
-    event.target.closest('.card').remove();
-  })
+  }
+
+  deleteButton.addEventListener("click", (event) => {
+    event.target.closest(".card").remove();
+  });
   function togglelikeButton() {
     likeButton.classList.toggle("card__like-button_active");
   }
   likeButton.addEventListener("click", togglelikeButton);
   imageElement.addEventListener("click", openImagePopup);
-  return cardElement
+  return cardElement;
 };
-
-
 
 cardForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const newCardData = {
     name: cardNewTitle.value,
     link: imageNewElement.value,
-    cardTemplate: cardTemplate
+    cardTemplate: cardTemplate,
   };
   renderCard(newCardData, placesWrapper);
   closePopup(addCardPopup);
   cardForm.reset();
   console.log(submitButtonSelector);
-  setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
+  setSubmitButtonState(
+    cardForm,
+    validationConfig.submitButtonSelector,
+    validationConfig.inputSelector,
+    validationConfig.inactiveButtonClass
+  );
 });
 
 const renderCard = (data, wrap) => {
@@ -158,20 +160,19 @@ initialCards.forEach((cardObject) => {
   renderCard(cardObject, placesWrapper);
 });
 
-
 // add infomation to submit
 function fillProfileInfo() {
   document.querySelector("#name").value = nameShown.textContent;
   document.querySelector("#about-me").value = descriptionShown.textContent;
-};
+}
 
 // Popup Forms
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  document.querySelector(".profile__title").textContent= nameInput.value;
+  document.querySelector(".profile__title").textContent = nameInput.value;
   document.querySelector(".profile__description").textContent = jobInput.value;
   closePopup(editProfilePopup);
 }
 
-profileForm.addEventListener('submit', handleProfileFormSubmit);
+profileForm.addEventListener("submit", handleProfileFormSubmit);

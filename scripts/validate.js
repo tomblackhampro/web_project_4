@@ -1,31 +1,48 @@
-const showError = ({ inputItem, inputErrorClass, errorClass, formSelector }) => {
+const showError = ({
+  inputItem,
+  inputErrorClass,
+  errorClass,
+  formSelector,
+}) => {
   const formParent = inputItem.closest(formSelector);
   const errorItem = formParent.querySelector(`.${inputItem.id}-error`);
   errorItem.textContent = inputItem.validationMessage;
   errorItem.classList.add(errorClass);
-}
+  inputItem.classList.add(inputErrorClass);
+};
 
-const hideError = ({ inputItem, inputErrorClass, errorClass, formSelector }) => {
+const hideError = ({
+  inputItem,
+  inputErrorClass,
+  errorClass,
+  formSelector,
+}) => {
   const formParent = inputItem.parentElement;
   const errorItem = formParent.querySelector(`.${inputItem.id}-error`);
   errorItem.textContent = "";
   errorItem.classList.remove(errorClass);
-}
+  inputItem.classList.remove(inputErrorClass);
+};
 
-const toggleInputError = (inputItem, inputErrorClass, errorClass, formSelector) => {
+const toggleInputError = (
+  inputItem,
+  inputErrorClass,
+  errorClass,
+  formSelector
+) => {
   if (!inputItem.validity.valid) {
     showError({
-      inputItem, errorClass, formSelector
+      inputItem,
+      errorClass,
+      formSelector,
     });
-    inputItem.classList.add(inputErrorClass);
-    } 
-    else
-    {
+  } else {
     hideError({
-      inputItem, errorClass, formSelector
+      inputItem,
+      errorClass,
+      formSelector,
     });
-    inputItem.classList.remove(inputErrorClass);
-  };
+  }
 };
 
 const checkFormValidity = (formSelector, inputSelector) => {
@@ -36,7 +53,12 @@ const checkFormValidity = (formSelector, inputSelector) => {
   return isFormValid;
 };
 
-const setSubmitButtonState = (form, submitButtonSelector, inputSelector, inactiveButtonClass) => {
+const setSubmitButtonState = (
+  form,
+  submitButtonSelector,
+  inputSelector,
+  inactiveButtonClass
+) => {
   const button = form.querySelector(submitButtonSelector);
   if (!checkFormValidity(form, inputSelector)) {
     button.classList.add(inactiveButtonClass);
@@ -47,26 +69,42 @@ const setSubmitButtonState = (form, submitButtonSelector, inputSelector, inactiv
   }
 };
 
-
 const enableValidation = (props) => {
-  const { formSelector, inputSelector, inputErrorClass, inactiveButtonClass, submitButtonSelector, errorClass } = props;
+  const {
+    formSelector,
+    inputSelector,
+    inputErrorClass,
+    inactiveButtonClass,
+    submitButtonSelector,
+    errorClass,
+  } = props;
   const formList = document.querySelectorAll(formSelector);
   formList.forEach((form) => {
-    setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    setSubmitButtonState(
+      form,
+      submitButtonSelector,
+      inputSelector,
+      inactiveButtonClass
+    );
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+    const inputs = form.querySelectorAll(inputSelector);
+    inputs.forEach((inputItem) => {
+      inputItem.addEventListener("input", () => {
+        toggleInputError(inputItem, inputErrorClass, errorClass, formSelector);
+        setSubmitButtonState(
+          form,
+          submitButtonSelector,
+          inputSelector,
+          inactiveButtonClass
+        );
       });
-      const inputs = form.querySelectorAll(inputSelector);
-      inputs.forEach((inputItem) => {
-        inputItem.addEventListener("input", () => { 
-          toggleInputError(inputItem, inputErrorClass, errorClass, formSelector);
-          setSubmitButtonState(form, submitButtonSelector, inputSelector, inactiveButtonClass);
-        });
-      });
+    });
   });
 };
 
-enableValidation({
+const validationConfig = {
   errorSelector: ".popup__error",
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -74,4 +112,6 @@ enableValidation({
   inputErrorClass: "popup__input_type_error",
   inactiveButtonClass: "popup__button_disabled",
   errorClass: "popup__error_visible",
-});
+};
+
+enableValidation(validationConfig);
