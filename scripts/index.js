@@ -1,3 +1,7 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+import closePopup from "./utils.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -26,24 +30,14 @@ const initialCards = [
 ];
 
 const placesWrapper = document.querySelector(".places__list");
-const editProfilePopup = document.querySelector(".popup-profile");
 const addCardPopup = document.querySelector(".popup-add");
-const openEditWindowButton = document.querySelector(".profile__rectangle-edit");
 const profileForm = document.querySelector(".popup__form-profile");
 const cardForm = document.querySelector(".popup__form-add");
-const cardButton = document.querySelector(".card__button");
-const openAddPopupButton = document.querySelector(".profile__rectangle-add");
-const closeButtons = document.querySelectorAll(".popup__close");
 const imagePopup = document.querySelector(".popup-image");
 const image = document.querySelector(".popup__image");
 const imageTitle = document.querySelector(".popup__title-img");
-const popupBackground = document.querySelectorAll(".popup__background");
-const nameInput = document.querySelector("#name");
-const jobInput = document.querySelector("#about-me");
 const cardNewTitle = document.querySelector("#title");
 const imageNewElement = document.querySelector("#image-link");
-const nameShown = document.querySelector(".profile__title");
-const descriptionShown = document.querySelector(".profile__description");
 const inputSelector = document.querySelector(".popup__input");
 const submitButtonSelector = document.querySelector(".popup__button-save");
 const inputErrorClass = document.querySelector("popup__input_type_error");
@@ -54,54 +48,6 @@ const cardTemplate = document
   .content.querySelector(".places__item");
 
 // popup open and close
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupByEscape);
-  popup.addEventListener("mousedown", closePopupOnRemoteClick);
-}
-
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupByEscape);
-  popup.removeEventListener("mousedown", closePopupOnRemoteClick);
-}
-
-closeButtons.forEach((button) => {
-  // find the closest popup
-  const popup = button.closest(".popup");
-  // set the listener
-  button.addEventListener("click", () => closePopup(popup));
-});
-
-// close the popup when the user presses the overlay
-function closePopupOnRemoteClick(evt) {
-  // target is the element on which the event happened
-  // currentTarget is the popup
-  // if they are the same then we should close the popup
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.target);
-  }
-}
-
-// close the popup when the user presses the escape key
-function closePopupByEscape(evt) {
-  if (evt.key === "Escape") {
-    // search for an opened modal
-    const openedPopup = document.querySelector(".popup_opened");
-    // close it
-    closePopup(openedPopup);
-  }
-}
-
-function openProfileWindow() {
-  openPopup(editProfilePopup);
-  fillProfileInfo();
-}
-
-openEditWindowButton.addEventListener("click", openProfileWindow);
-openAddPopupButton.addEventListener("click", function () {
-  openPopup(addCardPopup);
-});
 
 // Render Functions
 const getCardElement = (data) => {
@@ -142,37 +88,33 @@ cardForm.addEventListener("submit", (e) => {
   renderCard(newCardData, placesWrapper);
   closePopup(addCardPopup);
   cardForm.reset();
-  console.log(submitButtonSelector);
-  setSubmitButtonState(
-    cardForm,
-    validationConfig.submitButtonSelector,
-    validationConfig.inputSelector,
-    validationConfig.inactiveButtonClass
-  );
+  resetValidation;
 });
 
 const renderCard = (data, wrap) => {
-  const cardItem = getCardElement(data);
-  wrap.prepend(cardItem);
+  const cardInstance = new Card(
+    { title: data.name, imgUrl: data.link },
+    "#card-template"
+  );
+  const cardItem = wrap.prepend(cardInstance.generateCard());
 };
 
 initialCards.forEach((cardObject) => {
   renderCard(cardObject, placesWrapper);
 });
 
+const settings = {
+  errorSelector: ".popup__error",
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-save",
+  inputErrorClass: "popup__input_type_error",
+  inactiveButtonClass: "popup__button_disabled",
+  errorClass: "popup__error_visible",
+};
+const profileFormValidator = new FormValidator(settings, profileForm);
+const cardFormValidator = new FormValidator(settings, cardForm);
+
+profileFormValidator.enableValidation();
+cardFormValidator.enableValidation();
 // add infomation to submit
-function fillProfileInfo() {
-  document.querySelector("#name").value = nameShown.textContent;
-  document.querySelector("#about-me").value = descriptionShown.textContent;
-}
-
-// Popup Forms
-
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  document.querySelector(".profile__title").textContent = nameInput.value;
-  document.querySelector(".profile__description").textContent = jobInput.value;
-  closePopup(editProfilePopup);
-}
-
-profileForm.addEventListener("submit", handleProfileFormSubmit);

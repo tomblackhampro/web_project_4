@@ -1,3 +1,4 @@
+/*
 const showError = ({
   inputItem,
   inputErrorClass,
@@ -24,20 +25,15 @@ const hideError = ({
   inputItem.classList.remove(inputErrorClass);
 };
 
-const toggleInputError = (
-  inputItem,
-  inputErrorClass,
-  errorClass,
-  formSelector
-) => {
+const toggleInputError = (inputItem, errorClass, formSelector) => {
   if (!inputItem.validity.valid) {
-    showError({
+    this._showError({
       inputItem,
       errorClass,
       formSelector,
     });
   } else {
-    hideError({
+    this._hideError({
       inputItem,
       errorClass,
       formSelector,
@@ -115,3 +111,5 @@ const validationConfig = {
 };
 
 enableValidation(validationConfig);
+
+*/
