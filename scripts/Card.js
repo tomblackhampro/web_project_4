@@ -1,15 +1,23 @@
-const cardImageClassSelector = ".card__image";
-const cardTitleClassSelector = ".card__title";
-const cardClassSelector = ".card";
-const cardLikeButtonSelector = ".card__like-button";
-const cardDeleteButton = ".card__delete-button";
+import { openPopup } from "./utils.js";
+import {
+  cardImage,
+  image,
+  imagePopup,
+  imageTitle,
+  cardClassSelector,
+  cardImageClassSelector,
+  cardLikeButtonSelector,
+  cardDeleteButtonSelector,
+  cardTitleClassSelector,
+} from "./constants.js";
 
 class Card {
   constructor(data, cardSelector) {
     this._title = data.title;
     this._imgUrl = data.imgUrl;
     this._cardSelector = cardSelector;
-    this._deleteButton = cardDeleteButton;
+    this._deleteButton = cardDeleteButtonSelector;
+    this._cardImage = cardImage;
   }
   _getTemplate() {
     const cardElement = document
@@ -21,36 +29,41 @@ class Card {
 
   _setEventListeners() {
     this._element
-      .querySelector(cardDeleteButton)
-      .addEventListener("click", () => {
-        this._deleteCard();
-      });
+      .querySelector(cardImage)
+      .addEventListener("click", this._openImagePopup);
+    this._element
+      .querySelector(cardDeleteButtonSelector)
+      .addEventListener("click", this._deleteCard);
     this._element
       .querySelector(cardLikeButtonSelector)
-      .addEventListener("click", () => {
-        this._toggleLike();
-      });
+      .addEventListener("click", this._toggleLike);
   }
-  _;
-
-  _deleteCard() {
+  _deleteCard = () => {
     this._element.remove();
-  }
+    this._element = null;
+  };
 
-  _toggleLike() {
-    this._element
-      .querySelector(cardLikeButtonSelector)
-      .classList.toggle("card__like-button_active");
-  }
+  _toggleLike = () => {
+    this._likeButton = this._element.querySelector(cardLikeButtonSelector);
+    this._likeButton.classList.toggle("card__like-button_active");
+  };
+
+  _openImagePopup = () => {
+    image.src = this._imgUrl;
+    image.alt = this._title;
+    imageTitle.textContent = this._title;
+    openPopup(imagePopup);
+  };
 
   generateCard() {
     this._element = this._getTemplate();
-    this._setEventListeners();
-    this._element.querySelector(
-      cardImageClassSelector
-    ).style.backgroundImage = `url(${this._imgUrl})`;
+    this._element.querySelector(cardImageClassSelector).src = this._imgUrl;
     this._element.querySelector(cardTitleClassSelector).textContent =
       this._title;
+    this._element.querySelector(
+      cardImageClassSelector
+    ).alt = `Photo of ${this._title}`;
+    this._setEventListeners();
 
     return this._element;
   }

@@ -1,39 +1,12 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-import closePopup from "./utils.js";
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
+import { closePopup, openPopup } from "./utils.js";
+import { initialCards } from "./constants.js";
 
 const placesWrapper = document.querySelector(".places__list");
 const addCardPopup = document.querySelector(".popup-add");
 const profileForm = document.querySelector(".popup__form-profile");
 const cardForm = document.querySelector(".popup__form-add");
-const imagePopup = document.querySelector(".popup-image");
 const image = document.querySelector(".popup__image");
 const imageTitle = document.querySelector(".popup__title-img");
 const cardNewTitle = document.querySelector("#title");
@@ -42,41 +15,20 @@ const inputSelector = document.querySelector(".popup__input");
 const submitButtonSelector = document.querySelector(".popup__button-save");
 const inputErrorClass = document.querySelector("popup__input_type_error");
 const inactiveButtonClass = document.querySelector("popup__button_disabled");
+const editProfilePopup = document.querySelector(".popup-profile");
+const openEditWindowButton = document.querySelector(".profile__rectangle-edit");
+const nameShown = document.querySelector(".profile__title");
+const nameTitle = document.querySelector("#name");
+const nameDescription = document.querySelector("#about-me");
+const descriptionShown = document.querySelector(".profile__description");
+const nameInput = document.querySelector("#name");
+const jobInput = document.querySelector("#about-me");
+const closeButtons = document.querySelectorAll(".popup__close");
+const openAddPopupButton = document.querySelector(".profile__rectangle-add");
 // Card template
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".places__item");
-
-// popup open and close
-
-// Render Functions
-const getCardElement = (data) => {
-  const cardElement = cardTemplate.cloneNode(true);
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const imageElement = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-  imageElement.src = data.link;
-  imageElement.alt = data.name;
-  cardTitle.textContent = data.name;
-
-  function openImagePopup() {
-    openPopup(imagePopup);
-    image.src = data.link;
-    image.alt = data.name;
-    imageTitle.textContent = data.name;
-  }
-
-  deleteButton.addEventListener("click", (event) => {
-    event.target.closest(".card").remove();
-  });
-  function togglelikeButton() {
-    likeButton.classList.toggle("card__like-button_active");
-  }
-  likeButton.addEventListener("click", togglelikeButton);
-  imageElement.addEventListener("click", openImagePopup);
-  return cardElement;
-};
 
 cardForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -88,7 +40,7 @@ cardForm.addEventListener("submit", (e) => {
   renderCard(newCardData, placesWrapper);
   closePopup(addCardPopup);
   cardForm.reset();
-  resetValidation;
+  cardFormValidator.toggleButtonState();
 });
 
 const renderCard = (data, wrap) => {
@@ -96,7 +48,7 @@ const renderCard = (data, wrap) => {
     { title: data.name, imgUrl: data.link },
     "#card-template"
   );
-  const cardItem = wrap.prepend(cardInstance.generateCard());
+  wrap.prepend(cardInstance.generateCard());
 };
 
 initialCards.forEach((cardObject) => {
@@ -117,4 +69,36 @@ const cardFormValidator = new FormValidator(settings, cardForm);
 
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
-// add infomation to submit
+
+function openProfileWindow() {
+  openPopup(editProfilePopup);
+  fillProfileInfo();
+}
+
+function openAddWindow() {
+  openPopup(addCardPopup);
+}
+
+openEditWindowButton.addEventListener("click", openProfileWindow);
+openAddPopupButton.addEventListener("click", openAddWindow);
+
+function fillProfileInfo() {
+  nameTitle.value = nameShown.textContent;
+  nameDescription.value = descriptionShown.textContent;
+}
+
+// Popup Forms
+
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  document.querySelector(".profile__title").textContent = nameInput.value;
+  document.querySelector(".profile__description").textContent = jobInput.value;
+  closePopup(editProfilePopup);
+}
+
+profileForm.addEventListener("submit", handleProfileFormSubmit);
+
+closeButtons.forEach((button) => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
+});

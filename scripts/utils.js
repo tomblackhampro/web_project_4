@@ -1,14 +1,3 @@
-const editProfilePopup = document.querySelector(".popup-profile");
-const addCardPopup = document.querySelector(".popup-add");
-const openEditWindowButton = document.querySelector(".profile__rectangle-edit");
-const profileForm = document.querySelector(".popup__form-profile");
-const nameShown = document.querySelector(".profile__title");
-const descriptionShown = document.querySelector(".profile__description");
-const nameInput = document.querySelector("#name");
-const jobInput = document.querySelector("#about-me");
-const closeButtons = document.querySelectorAll(".popup__close");
-const openAddPopupButton = document.querySelector(".profile__rectangle-add");
-
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupByEscape);
@@ -20,13 +9,6 @@ function closePopup(popup) {
   document.removeEventListener("keydown", closePopupByEscape);
   popup.removeEventListener("mousedown", closePopupOnRemoteClick);
 }
-
-closeButtons.forEach((button) => {
-  // find the closest popup
-  const popup = button.closest(".popup");
-  // set the listener
-  button.addEventListener("click", () => closePopup(popup));
-});
 
 // close the popup when the user presses the overlay
 function closePopupOnRemoteClick(evt) {
@@ -48,30 +30,4 @@ function closePopupByEscape(evt) {
   }
 }
 
-function openProfileWindow() {
-  openPopup(editProfilePopup);
-  fillProfileInfo();
-}
-
-openEditWindowButton.addEventListener("click", openProfileWindow);
-openAddPopupButton.addEventListener("click", function () {
-  openPopup(addCardPopup);
-});
-
-function fillProfileInfo() {
-  document.querySelector("#name").value = nameShown.textContent;
-  document.querySelector("#about-me").value = descriptionShown.textContent;
-}
-
-// Popup Forms
-
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  document.querySelector(".profile__title").textContent = nameInput.value;
-  document.querySelector(".profile__description").textContent = jobInput.value;
-  closePopup(editProfilePopup);
-}
-
-profileForm.addEventListener("submit", handleProfileFormSubmit);
-
-export default closePopup;
+export { openPopup, closePopup };
