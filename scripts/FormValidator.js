@@ -1,9 +1,8 @@
 class FormValidator {
   constructor(settings, formElement) {
-    this._settings = settings;
     this._formElement = formElement;
     this._inputList = Array.from(
-      this._formElement.querySelectorAll(this._settings.inputSelector)
+      this._formElement.querySelectorAll(settings.inputSelector)
     );
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
@@ -29,14 +28,12 @@ class FormValidator {
     } else {
       this._hideError(inputItem);
     }
-    this.toggleButtonState();
   }
 
   _showError(inputItem) {
     const errorElement = this._formElement.querySelector(
       `.${inputItem.id}-error`
     );
-    console.log(errorElement);
     errorElement.textContent = inputItem.validationMessage;
     errorElement.classList.add(this._errorClass);
     inputItem.classList.add(this._inputErrorClass);
